@@ -54,7 +54,7 @@ public class EqualMatch {
     }
 
     public boolean match(Boolean left, Boolean right) {
-        return left == right;
+        return left.equals(right);
     }
 
     public boolean match(boolean left, boolean right) {
