@@ -41,7 +41,7 @@ public class Channels<T> {
                 bufferChannels[i] = new Buffer<T>(bufferSize, strategy);
             }
         }
-        size = channelSize * bufferSize;
+        size = (long) channelSize * bufferSize;
     }
 
     public boolean save(T data) {
