@@ -41,7 +41,7 @@ public class HandleInterceptor implements InstanceMethodsAroundInterceptor {
     private static final String GET_STATUS_METHOD = "getStatus";
 
     static {
-        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(HandleInterceptor.class.getClassLoader(), SERVLET_RESPONSE_CLASS, GET_STATUS_METHOD);
+        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(java.lang.Thread.currentThread().getContextClassLoader(), org.apache.skywalking.apm.plugin.jetty.v9.server.HandleInterceptor.SERVLET_RESPONSE_CLASS, org.apache.skywalking.apm.plugin.jetty.v9.server.HandleInterceptor.GET_STATUS_METHOD);
     }
 
     @Override

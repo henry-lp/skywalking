@@ -55,8 +55,7 @@ public abstract class AbstractMethodInterceptor implements InstanceMethodsAround
     private static final String GET_STATUS_METHOD = "getStatus";
 
     static {
-        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(
-            AbstractMethodInterceptor.class.getClassLoader(), SERVLET_RESPONSE_CLASS, GET_STATUS_METHOD);
+        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(java.lang.Thread.currentThread().getContextClassLoader(), org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.AbstractMethodInterceptor.SERVLET_RESPONSE_CLASS, org.apache.skywalking.apm.plugin.spring.mvc.commons.interceptor.AbstractMethodInterceptor.GET_STATUS_METHOD);
     }
 
     public abstract String getRequestURL(Method method);
