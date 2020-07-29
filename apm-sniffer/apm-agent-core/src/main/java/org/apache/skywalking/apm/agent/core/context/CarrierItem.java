@@ -61,6 +61,9 @@ public class CarrierItem implements Iterator<CarrierItem> {
 
     @Override
     public CarrierItem next() {
+		if (!hasNext()) {
+			throw new java.util.NoSuchElementException();
+		}
         return next;
     }
 

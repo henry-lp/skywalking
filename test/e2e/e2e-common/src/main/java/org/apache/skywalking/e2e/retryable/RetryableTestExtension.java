@@ -70,6 +70,9 @@ final class RetryableTestExtension implements TestTemplateInvocationContextProvi
 
                 @Override
                 public Integer next() {
+				if (!hasNext()) {
+					throw new java.util.NoSuchElementException();
+				}
                     return count.getAndIncrement();
                 }
             }, Spliterator.NONNULL), false
