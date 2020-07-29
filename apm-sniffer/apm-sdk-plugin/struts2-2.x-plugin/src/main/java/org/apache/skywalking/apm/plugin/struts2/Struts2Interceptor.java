@@ -41,7 +41,7 @@ public class Struts2Interceptor implements InstanceMethodsAroundInterceptor {
     private static final String GET_STATUS_METHOD = "getStatus";
 
     static {
-        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(Struts2Interceptor.class.getClassLoader(), SERVLET_RESPONSE_CLASS, GET_STATUS_METHOD);
+        IS_SERVLET_GET_STATUS_METHOD_EXIST = MethodUtil.isMethodExist(java.lang.Thread.currentThread().getContextClassLoader(), org.apache.skywalking.apm.plugin.struts2.Struts2Interceptor.SERVLET_RESPONSE_CLASS, org.apache.skywalking.apm.plugin.struts2.Struts2Interceptor.GET_STATUS_METHOD);
     }
 
     @Override
