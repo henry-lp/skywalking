@@ -50,13 +50,13 @@ public final class Yamls {
     }
 
     public static AsTypeBuilder load(final File file) throws IOException {
-        final InputStream inputStream = new FileInputStream(file);
-
-        return new AsTypeBuilder() {
-            @Override
-            public <T> T as(final Class<T> klass) {
-                return new Yaml().loadAs(inputStream, klass);
-            }
-        };
+			try (final java.io.InputStream inputStream = new java.io.FileInputStream(file)) {
+				return new org.apache.skywalking.e2e.utils.Yamls.AsTypeBuilder() {
+					@java.lang.Override
+					public <T> T as(final java.lang.Class<T> klass) {
+						return new org.testcontainers.shaded.org.yaml.snakeyaml.Yaml().loadAs(inputStream, klass);
+					}
+				};
+			}
     }
-}
+	}

@@ -71,17 +71,15 @@ public class GraphQLQueryHandler extends JettyJsonHandler {
 
     @Override
     protected JsonElement doPost(HttpServletRequest req) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
-        String line;
-        StringBuilder request = new StringBuilder();
-        while ((line = reader.readLine()) != null) {
-            request.append(line);
-        }
-
-        JsonObject requestJson = gson.fromJson(request.toString(), JsonObject.class);
-
-        return execute(requestJson.get(QUERY)
-                                  .getAsString(), gson.fromJson(requestJson.get(VARIABLES), mapOfStringObjectType));
+		try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(req.getInputStream()))) {
+			java.lang.String line;
+			java.lang.StringBuilder request = new java.lang.StringBuilder();
+			while ((line = reader.readLine()) != null) {
+				request.append(line);
+			} 
+			com.google.gson.JsonObject requestJson = gson.fromJson(request.toString(), com.google.gson.JsonObject.class);
+			return execute(requestJson.get(org.apache.skywalking.oap.query.graphql.GraphQLQueryHandler.QUERY).getAsString(), gson.fromJson(requestJson.get(org.apache.skywalking.oap.query.graphql.GraphQLQueryHandler.VARIABLES), mapOfStringObjectType));
+		}
     }
 
     private JsonObject execute(String request, Map<String, Object> variables) {

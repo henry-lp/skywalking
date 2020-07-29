@@ -55,30 +55,32 @@ public class MultipleFilesChangeMonitorTest {
         monitor.start();
 
         File file = new File(FILE_NAME);
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-        bos.write("test context".getBytes(Charset.forName("UTF-8")));
-        bos.flush();
-        bos.close();
-
-        int countDown = 40;
-        boolean notified = false;
-        boolean notified2 = false;
-        while (countDown-- > 0) {
-            if ("test context".equals(content.toString())) {
-                file = new File(FILE_NAME);
-                bos = new BufferedOutputStream(new FileOutputStream(file));
-                bos.write("test context again".getBytes(Charset.forName("UTF-8")));
-                bos.flush();
-                bos.close();
-                notified = true;
-            } else if ("test context again".equals(content.toString())) {
-                notified2 = true;
-                break;
-            }
-            Thread.sleep(500);
-        }
-        Assert.assertTrue(notified);
-        Assert.assertTrue(notified2);
+		try (java.io.BufferedOutputStream bos = new java.io.BufferedOutputStream(new java.io.FileOutputStream(file))) {
+			bos.write("test context".getBytes(java.nio.charset.Charset.forName("UTF-8")));
+			bos.flush();
+			bos.close();
+			int countDown = 40;
+			boolean notified = false;
+			boolean notified2 = false;
+			while ((countDown--) > 0) {
+				if ("test context".equals(content.toString())) {
+					file = new java.io.File(org.apache.skywalking.oap.server.library.util.MultipleFilesChangeMonitorTest.FILE_NAME);
+					bos = new java.io.BufferedOutputStream(new java.io.FileOutputStream(file));
+					bos.write("test context again".getBytes(java.nio.charset.Charset.forName("UTF-8")));
+					bos.flush();
+					bos.close();
+					notified = true;
+				} else {
+					if ("test context again".equals(content.toString())) {
+						notified2 = true;
+						break;
+					}
+				}
+				java.lang.Thread.sleep(500);
+			} 
+			org.junit.Assert.assertTrue(notified);
+			org.junit.Assert.assertTrue(notified2);
+		}
     }
 
     @BeforeClass

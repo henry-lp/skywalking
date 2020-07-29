@@ -108,10 +108,11 @@ public class MavenWrapperDownloader {
         URL website = new URL(urlString);
         ReadableByteChannel rbc;
         rbc = Channels.newChannel(website.openStream());
-        FileOutputStream fos = new FileOutputStream(destination);
-        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-        fos.close();
-        rbc.close();
+		try (java.io.FileOutputStream fos = new java.io.FileOutputStream(destination)) {
+			fos.getChannel().transferFrom(rbc, 0, java.lang.Long.MAX_VALUE);
+			fos.close();
+			rbc.close();
+		}
     }
 
 }
